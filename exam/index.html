@@ -2,109 +2,104 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <meta name="description" content="大学・高校物理の解説とPDF教材を掲載。古典力学から量子力学まで対応。">
   <title>高校物理</title>
   <style>
     body {
       font-family: "Hiragino Mincho ProN", "游明朝", "YuMincho", serif;
+      background-color: #f2f7f9;
       max-width: 800px;
       margin: auto;
       padding: 2em;
       line-height: 1.8;
-      background-color: #f9f9f9;
+      font-size: 15px;
     }
+
+    header {
+      width: 100%;
+      height: 250px;
+      background-image: url('../HP_header.jpg');
+      background-size: cover;
+      background-position: center;
+      margin-bottom: 2em;
+    }
+
     h1 {
       font-size: 2em;
-      border-bottom: 2px solid #ccc;
-      padding-bottom: 0.3em;
       text-align: center;
+      margin-bottom: 0.5em;
     }
+
     h2 {
       font-size: 1.4em;
       margin-top: 2em;
-      border-left: 5px solid #007acc;
+      border-left: 5px solid #cc6688;
       padding-left: 0.5em;
     }
-    ul {
-      padding-left: 1.2em;
+
+    p {
+      text-indent: 1em;
+      margin-top: 1em;
     }
+
     a {
-      color: #007acc;
+      color: #cc6688;
       text-decoration: none;
     }
+
     a:hover {
+      color: #aa5577;
       text-decoration: underline;
     }
-    p {
-  text-indent: 1em;  /* 段落の最初を1字下げ */
-  margin-top: 1em;   /* 上に少しスペース（お好みで） */
-}
-  ul {
-  list-style: none;
-  padding-left: 0;
-}
-ul li {
-  margin: 0.5em 0;
-}
-ul li a {
-  text-decoration: none;
-  color: #007acc;
-}
-ul li a:hover {
-  text-decoration: underline;
-}
 
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    ul li {
+      margin: 0.5em 0;
+    }
+
+    .back {
+      text-align: center;
+      margin-top: 3em;
+    }
+
+    .back a {
+      display: inline-block;
+      padding: 0.7em 1.5em;
+      background-color: #cc6688;
+      color: white;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
   </style>
 </head>
 <body>
+  <header></header>
 
   <h1>高校物理</h1>
 
   <h2>19歳の物理学</h2>
-  <p>高校3年生，及び高卒生向けテキストです．大学受験で問われる古典物理学を，高校数学の範囲で議論しています．</p>
-  <p>
-  📘 <a href="/exam/Mechanics_for19_Part1.pdf" target="_blank">
-    『19歳の古典力学 Part 1』PDFを読む
-  </a>
-</p>
-<p>
-  📘 <a href="/exam/Mechanics_for19_Part2.pdf" target="_blank">
-    『19歳の古典力学 Part 2』PDFを読む
-  </a>
-</p>
-<p>
-  📘 <a href="/exam/Thermodynamics_for19.pdf" target="_blank">
-    『19歳の熱力学』PDFを読む
-  </a>
-</p>
+  <p>大学受験で問われる古典物理学を，高校数学の範囲で議論しています．</p>
+  <ul>
+    <li>📘 <a href="/exam/19歳の古典力学_Part1.pdf" target="_blank">19歳の古典力学 Part1</a></li>
+    <li>📘 <a href="/exam/19歳の古典力学_Part2.pdf" target="_blank">19歳の古典力学 Part2</a></li>
+    <li>📘 <a href="/exam/19歳の熱力学.pdf" target="_blank">19歳の熱力学</a></li>
+  </ul>
+
   <h2>基礎力養成トレーニング</h2>
-  <p>物理の基礎力とは，どんな問題に対しても立式できる能力を鍛えることです．受験物理におけるトレーニング問題集です．</p>
-<p>
-  📘 <a href="/exam/Training_Mechanics.pdf" target="_blank">
-    『基礎力養成トレーニング　古典力学』PDFを読む
-  </a>
-</p>
+  <p>基礎力とは，どんな問題にも物理法則を立式できるようになる力．物理法則の使い方を学ぶ問題集です．</p>
+  <ul>
+    <li>📘 <a href="/exam/基礎力養成トレーニング-古典力学.pdf" target="_blank">古典力学</a></li>
+  </ul>
+
   <h2>大学入試詳解</h2>
-  <p>過去の大学入試過去問の詳解です．</p>
- <div style="
-  display: flex;
-  justify-content: center;
-  margin-top: 2em;
-">
-  <a href="/" style="
-    display: inline-block;
-    padding: 0.7em 1.5em;
-    background-color: #007acc;
-    color: white;
-    text-decoration: none;
-    border-radius: 6px;
-    font-size: 1rem;
-  ">
-    トップページに戻る
-  </a>
-</div>
+  <p>大学入試における問題の詳細な解答です．</p>
 
-</p>
-
-  
+  <div class="back">
+    <a href="/">トップページに戻る</a>
+  </div>
 </body>
 </html>
