@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>学生ログイン</title>
+  <style>
+    body {
+      font-family: "Hiragino Mincho ProN", "游明朝", "YuMincho", serif;
+      background-color: #f8f4ea;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    h1 {
+      color: #cc6688;
+      margin-bottom: 1em;
+    }
+
+    input[type="password"] {
+      padding: 0.5em;
+      font-size: 1rem;
+      width: 250px;
+      margin-bottom: 1em;
+    }
+
+    button {
+      padding: 0.5em 1em;
+      font-size: 1rem;
+      background-color: #cc6688;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .error {
+      color: red;
+      margin-top: 1em;
+    }
+  </style>
+</head>
+<body>
+  <h1>学生ログイン</h1>
+  <input type="password" id="password" placeholder="パスワードを入力">
+  <button onclick="login()">ログイン</button>
+  <div class="error" id="error-message"></div>
+
+  <script>
+    function login() {
+      const correctPassword = "250624";  // 🔐←共通パスワード
+      const input = document.getElementById("password").value;
+
+      if (input === correctPassword) {
+        window.location.href = "/students/";
+      } else {
+        document.getElementById("error-message").textContent = "パスワードが違います。";
+      }
+    }
+  </script>
+</body>
+</html>
