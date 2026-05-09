@@ -1,1 +1,731 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="熱力学第二法則を，トムソンの原理，クラウジウスの原理，カルノーの定理，エントロピー増大則から整理する大学物理の記事。">
+  <title>熱力学第二法則｜物理の海の泳ぎ方</title>
+  <script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['\\[', '\\]']],
+      packages: {'[+]': ['ams']},
+      macros: {
+        dd: '\\mathrm{d}'
+      }
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    :root {
+      --paper: #fdfaf6;
+      --paper-deep: #f8f4ea;
+      --ink: #2d2926;
+      --muted: #6f6760;
+      --line: #e4d8ca;
+      --accent: #cc6688;
+      --accent-deep: #a84f6e;
+      --box: #fffaf2;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "Noto Serif JP", serif;
+      line-height: 1.95;
+      letter-spacing: 0.02em;
+    }
+    .site-header {
+      background: linear-gradient(180deg, #f8f4ea 0%, #fdfaf6 100%);
+      border-bottom: 1px solid var(--line);
+      padding: 22px 20px 18px;
+    }
+    .site-header-inner { max-width: 960px; margin: 0 auto; }
+    .breadcrumb { font-size: 0.92rem; color: var(--muted); margin-bottom: 10px; }
+    .breadcrumb a { color: var(--accent-deep); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .article-layout {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 760px) 260px;
+      gap: 42px;
+      padding: 36px 20px 80px;
+    }
+    article { min-width: 0; }
+    h1, h2, h3 {
+      font-weight: 700;
+      line-height: 1.55;
+      letter-spacing: 0.05em;
+    }
+    h1 {
+      font-size: clamp(2.0rem, 4vw, 3.0rem);
+      margin: 0 0 28px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    h2 {
+      font-size: 1.55rem;
+      margin: 56px 0 18px;
+      padding-left: 14px;
+      border-left: 5px solid var(--accent);
+    }
+    h3 {
+      font-size: 1.2rem;
+      margin: 40px 0 14px;
+      color: #403936;
+    }
+    p { margin: 1.05em 0; }
+    strong { font-weight: 700; background: linear-gradient(transparent 68%, rgba(204,102,136,0.18) 68%); }
+    a { color: var(--accent-deep); }
+    .toc {
+      position: sticky;
+      top: 24px;
+      align-self: start;
+      background: rgba(255,250,242,0.88);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px 18px 16px;
+      font-size: 0.92rem;
+      max-height: calc(100vh - 48px);
+      overflow: auto;
+    }
+    .toc-title { font-weight: 700; margin-bottom: 8px; }
+    .toc ul { list-style: none; padding: 0; margin: 0; }
+    .toc li { margin: 0.35em 0; line-height: 1.5; }
+    .toc-level-3 { padding-left: 1.1em; font-size: 0.88rem; }
+    .toc a { text-decoration: none; color: var(--muted); }
+    .toc a:hover { color: var(--accent-deep); text-decoration: underline; }
+    .math-block {
+      overflow-x: auto;
+      margin: 1.2em 0;
+      padding: 0.6em 0.2em;
+    }
+    .principle-box {
+      margin: 1.5em 0 1.8em;
+      padding: 18px 22px;
+      background: var(--box);
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--accent);
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(77, 58, 47, 0.05);
+    }
+    .principle-title {
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #403936;
+    }
+    .principle-box ul { margin: 0.4em 0 0 1.2em; padding: 0; }
+    .principle-box li { margin: 0.5em 0; }
+    .article-figure {
+      margin: 2.2em auto;
+      text-align: center;
+    }
+    .article-figure img {
+      max-width: min(100%, 720px);
+      height: auto;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: #fff;
+      box-shadow: 0 10px 28px rgba(77, 58, 47, 0.08);
+    }
+    figcaption {
+      margin-top: 0.7em;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .footnotes {
+      margin-top: 64px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .footnotes h2 { border-left: none; padding-left: 0; margin-top: 0; font-size: 1.2rem; }
+    .footnote-back { text-decoration: none; margin-left: 0.3em; }
+    .site-footer {
+      border-top: 1px solid var(--line);
+      background: var(--paper-deep);
+      color: var(--muted);
+      padding: 24px 20px;
+      text-align: center;
+      font-size: 0.92rem;
+    }
+    @media (max-width: 940px) {
+      .article-layout { display: block; padding-top: 28px; }
+      .toc { position: static; margin-bottom: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="breadcrumb">
+        <a href="../../index.html">Top</a> / <a href="../index.html">大学物理</a> / <a href="./index.html">熱力学</a>
+      </div>
+    </div>
+  </header>
 
+  <main class="article-layout">
+    <article>
+<h1 id="section-1">熱力学第二法則</h1>
+
+<p>熱力学は難しい．大学で学ぶ物理学の中でも，特徴的な分野である．このことに賛同する学徒は，少なくないはずだ．数学や式変形が煩雑で理論が入ってこない，というよりも，まるで幾何学のような議論の方法や，流儀の違いに起因して，手にとる本で書かれていることが到底同値には思えないのだ．高校物理では，熱と仕事とエネルギーの分配の仕方と，ミクロな分子の運動を（雑に）考える議論で，『熱力学を攻略した』，かのような錯覚に陥るが，はっきり言って受験で学ぶ熱力学は，人類が未来に残そうとするべき内容に触れることはできていない<sup id="fnref-1"><a href="#fn-1">1</a></sup>．この記事では，熱力学の本質的な内容であり，分かるようで分からない熱力学第二法則について，私が大切だと思うことを述べてゆく．</p>
+
+<h2 id="section-2">熱力学第一法則の主張</h2>
+
+<p>念のため，熱力学第一法則（The first law of thermodynamics）についてまず述べておく．熱力学は符号の付け方にも流儀があるため，注意を要するためだ．系の内部エネルギーが$\dd U$だけ変化したとき，その内訳は，外部からの仕事$\dd' W$と外部からの熱$\dd' Q$の和となる，これが熱力学第一法則の主張である．</p>
+
+<div class="math-block">\[\begin{align*}
+\dd U=\dd'W+\dd'Q.
+\end{align*}\]</div>
+
+<p>気体分子が有する運動エネルギーからポテンシャルまで，とにかく気体が有する全てのエネルギーの総和を内部エネルギー（Internal energy）と呼び，これを$U$と表す．内部エネルギーは状態量であり，系の状態を指定すると一意に定まる物理量だ．詳しく述べると，ある状態Aからある状態Bまで系が遷移したとき，それぞれの状態の内部エネルギーの変化量$U_\text{B}-U_\text{A}$が，どのような遷移の辿り方をしても常に同じ値になるということだ．これは経験的に知られた事実として知られている<sup id="fnref-2"><a href="#fn-2">2</a></sup>．状態量であるために，内部エネルギーの微小な変化量は，全微分記号を用いて書けるということだ．状態量であるということは，始状態から始状態に移る経路$C$での積分では以下の式が成立する．</p>
+
+<div class="math-block">\[\begin{align*}
+\oint_{C} \dd U=0.
+\end{align*}\]</div>
+
+<p>一方，外部からの仕事は経路，つまり仕事の仕方に依存する．シリンダーに閉じ込められた気体のピストンをゆっくり動かすときと，急激に動かすときでは，仕事は異なる．また第一法則が正しいものであると仮定すると，加えられた仕事が経路に依存し，かつ系が透熱壁でできており，熱のやりとりをするのであれば，その熱も経路に依存するはずだ．したがって仕事と熱は全微分では表せないので，プライム記号を付けてある．</p>
+
+<p>ここで，熱というものを厳密に定義しているわけではない．第一法則からは，『系が外部からの仕事を受ける以外にもらう何か』，が熱の正体であるくらいにしか解釈することはできない<sup id="fnref-3"><a href="#fn-3">3</a></sup>．第一法則はあくまでも，熱力学的な系のエネルギーの収支関係であることに注意しよう．</p>
+
+<h3 id="section-5">仕事の表現</h3>
+
+<p>外部からの仕事について注目する．ここでは準静過程を仮定する．つまり，気体の熱平衡状態が保たれるように，ゆっくりと変化させることを考えるのだ．系が外部から仕事をする，つまり外力を加えなければならないのは，系は気体から押されているためだ．簡単のため断面積$S$のシリンダーに閉じ込められた気体を，ピストンの押し引きで体積変化させることを考える．ピストンが気体から押される力は圧力の大きさを$p$として$pS$となる．準静過程を仮定すれば，外力と圧力は釣り合っている．ピストンを押して変位が$\dd x(>0)$としたとき，体積は$\dd V(<0)$だけ変化したとしよう．つまり，$\dd V=-S\dd x$である．</p>
+
+<figure class="article-figure">
+  <img src="../image/1_1.png" alt="外部からの仕事" loading="lazy">
+  <figcaption>Fig.1 外部からの仕事</figcaption>
+</figure>
+
+<p>外力の仕事$\dd'W$は以下の式で表される．</p>
+
+<div class="math-block">\[\begin{align*}
+\dd'W=+F\cdot\dd x=-p\dd V.
+\end{align*}\]</div>
+
+<p>$\dd V<0$のとき，外力の仕事は正となり，ピストンを引く，つまり気体の膨張を考え，$\dd V>0$であるときは，外力の仕事は負となり，正しく仕事を表現できている．</p>
+
+<p>また，第一法則の仕事を移項すると，以下のようにも表される．</p>
+
+<div class="math-block">\[\begin{align*}
+\dd'Q=\dd U-\dd'W.
+\end{align*}\]</div>
+
+<p>$-\dd'W=+p\dd V$と表される．これは，系が外部にする仕事と解釈できる．これを$\dd' w$とすると，第一法則は，以下の式で書き換えられる．</p>
+
+<div class="math-block">\[\begin{align*}
+\dd'Q=\dd' w+\dd U.
+\end{align*}\]</div>
+
+<p>この式では，系に熱を与えると，系が外部に仕事をする，と言い換えることができる．熱力学的な系は，応用上は熱機関であり，熱機関に熱を外部から加えると，熱の一部が仕事に，残りが内部エネルギーの変化に使われるということを主張しているのだ．文脈に応じてどちらの式も使われる．熱力学の文章では，『仕事』が何を意味しているのかに注意を払うべきだ．この記事では，$\dd'W$を外部からの仕事，$\dd'w$を系のする仕事とし，もちろん$\dd'W=-\dd'w$の関係が成立する．</p>
+
+<h2 id="section-3">熱力学第二法則の主張</h2>
+
+<p>第一法則は，熱力学的な系のエネルギーと仕事の関係を表すものであった．熱機関を考える上では，加えた熱の全てが仕事になれば，それは無駄がなくて良い気がする．重要なのが，熱機関を最初の状態に戻してもなお，加えた熱の全てを外部への仕事にできるかどうかである．最初の状態に戻さないならば，熱さえ与えればいくらでも熱機関は仕事をしそうだが，ピストンが延々と膨張してしまうのは，使い勝手が悪い．</p>
+
+<p>始状態まで戻る熱力学的過程をサイクルと呼ぶ．熱機関を1サイクル回して，加えた熱の全てを系がする仕事に変換されるのが理想であろう．実際にこのような熱機関が存在するだろうか．答えは否である．このような熱機関を第二種永久機関と呼ぶ．</p>
+
+<p><strong>熱力学第二法則（The second law of thermodynamics）は，熱力学的な系がどのような過程を許し，どのような過程を許さないのかを主張する経験則だ．</strong>エネルギーのやりとりとしてはなにもおかしいことはないが，実際にその過程が起こるか否かは，考える余地がある．ややこしいことに，熱力学第二法則には様々な表現があり，どれも同値には思えない．定量的に表されるものもある．この記事では，比較的有名なクラウジウスの原理とトムソンの原理の，2つの言葉で述べられた第二法則をまず取り上げる<sup id="fnref-4"><a href="#fn-4">4</a></sup>．その後，数式を用いた定量的な表現も紹介する．</p>
+
+<h3 id="section-6">トムソンの原理</h3>
+
+<p>まずは比較的分かりやすいであろう，トムソンの原理を紹介する．</p>
+
+<div class="principle-box">
+  <div class="principle-title">トムソンの原理</div>
+  <ul>
+<li>単一温度の熱源から熱を受け取り，その全てを系がする仕事に変換できる熱力学サイクルは存在しない．</li>
+  </ul>
+</div>
+
+<p>これは先ほど述べた，第二種永久機関を否定するものである．1サイクルで熱機関がする仕事の総和を正味の仕事と呼ぶ．数式で表現すると，$\displaystyle\oint_{C}\dd'w$である．熱機関に加えられた熱が，そっくりそのまま正味の仕事にはならないということだ．</p>
+
+<p>単一の温度の熱源として思いつくのは，海や湖だろうか．もし海を熱源として，そこから熱を汲み取り，その熱を全て仕事に変える熱機関があれば大変に便利であろうが，現代でも実現されなかった．熱力学第二法則が立ち塞がるのである．これは経験則であり，何かから導かれるものではないのだ．</p>
+
+<h3 id="section-7">クラウジウスの原理</h3>
+
+<p>第二法則を表す有名なものとして，クラウジウスの原理も紹介する．</p>
+
+<div class="principle-box">
+  <div class="principle-title">クラウジウスの原理</div>
+  <ul>
+<li>周囲に何も変化を残すことなく，低温熱源から高温熱源に熱を移動させることはできない．</li>
+  </ul>
+</div>
+
+<p>私はこの解釈に少し躓いた．雑に言うと，『低温熱源から高温熱源に熱は勝手に移動しない』，ということなのだが，逆に言えば『周囲に何か変化を残せば』，熱は低温から高温側に移すことができるのだろうか．なぜクラウジウスの原理は，こんな回りくどく，読み手の解釈に委ねるような表現をしているのだろうか．</p>
+
+<p>この『周囲に何も変化を残すことなく』，というのを具体的に言えば『周囲からの手助けなしに』，もっと突っ込むと，『周囲から仕事を受けることなしに』，と最初は言い換えてもよいだろう．低温熱源から高温熱源に熱を移す装置として，冷蔵庫が挙げられる．冷蔵庫は，庫内が低温熱源で，庫外が高温熱源だ．無論，自発的に庫内の熱を庫外に捨てているわけではない．冷蔵庫はコンセントから電源を受け取り，その電気エネルギーを仕事にして，熱を庫外に捨てている．冷蔵庫内で実際に行われる仕事の詳細については立ち入らないが，冷蔵庫は確かに『発電所からの手助け』で，熱の移動をしている装置だ．</p>
+
+<figure class="article-figure">
+  <img src="../image/1_2.png" alt="冷蔵庫の熱力学的概要" loading="lazy">
+  <figcaption>Fig.2 冷蔵庫の熱力学的概要</figcaption>
+</figure>
+
+<p>クラウジウスの原理がまどろっこしい形で表現されるのは，周囲の変化を伴えば低温から高温への熱移動そのものは可能であり，第二法則はそれを全面的に禁止しているわけではないからである．この熱の移動は，人間の直感的にも不自然であるのは明白だ．放っておけば，熱は高温から低温に移動するのが，私たちにとって当たり前だからである．クラウジウスの原理は，熱の移動について核心に近い主張をしている．<strong>『周囲に何も変化を残さない』というのは，決してそれが外部からの仕事だけに限定されるわけではなく，低温から高温への熱移動を，唯一の結果とすることはできないことを意味しているのだ．</strong></p>
+
+<h3 id="section-8">カルノーサイクル</h3>
+
+<p>トムソンの原理もクラウジウスの原理も，熱力学第二法則である．したがって，どちらの法則も同値なのだ．この同値性を示すための準備として，カルノーサイクルを紹介する．カルノーサイクルは断熱準静過程，等温準静過程を組み合わせたサイクルである．熱力学の考察する上で思考実験としてカルノーが注目し，その考察がエントロピーの発見に繋がるのである．カルノーサイクルの$T-V$グラフを以下に示す．</p>
+
+<figure class="article-figure">
+  <img src="../image/1_3.png" alt="カルノーサイクルの$T-V$グラフ" loading="lazy">
+  <figcaption>Fig.3 カルノーサイクルの$T-V$グラフ</figcaption>
+</figure>
+
+<p>経路Iが，温度$T_H$の高温熱源から，熱の大きさ$q_H(>0)$を受け取る等温準静過程，過程IIが断熱準静過程で体積膨張，過程IIIが温度$T_L$の低温熱源大きさ$q_L(>0)$の熱を捨てる等温準静過程，過程IVの断熱準静過程で体積圧縮により，最初の状態に戻る．カルノーサイクルは，2つの熱源で成立するサイクルである．熱量を表す文字$q$は大きさで符号が入らない量であることに注意してほしい．排熱は負符号を用いて，$-q_L$と表せる．1サイクルにおける正味の仕事を$w_n$とすると，1サイクルのエネルギー収支関係より，以下の式が成立する．</p>
+
+<div class="math-block">\[\begin{align*}
+q_H-q_L=w_n.
+\end{align*}\]</div>
+
+<p>受け取った熱から排熱した分が，カルノーサイクルで取り出せる仕事であるということだ．1サイクルでは内部エネルギーの変化量がゼロになることに注意してほしい．ここからの議論で重要であるため強調しておくと，<strong>カルノーサイクルは準静過程のサイクルで，かつ逆向きに回すことができるサイクルだ．</strong>サイクルを逆に回すとは，仕事を外から受け取って，低温から高温に熱を移動するということだ．先ほど紹介した冷蔵庫を思い浮かべれば良い．外部から受け取る正味の仕事を$W_n$とすると，$q_H$，$q_L$との間に，以下の関係式が成立する．</p>
+
+<div class="math-block">\[\begin{align*}
+q_H=q_L+W_n.
+\end{align*}\]</div>
+
+<p>上式は，<strong>低温側で奪った熱に外からの仕事を上乗せして排熱することを示している．</strong>冷蔵庫の例なら，庫内で奪った熱は，コンセントからの電気的なエネルギーを仕事にかえたものを上乗せして，庫外に排熱しているということだ．冷凍機の適切なイメージが，以降の議論にも大いに役立つ．</p>
+
+<h3 id="section-9">トムソンの原理とクラウジウスの原理の同値性</h3>
+
+<p>カルノーサイクルを用いて，トムソンの原理とクラウジウスの原理が同値であることを示す．使う手法は，命題の対偶を考えることだ．物理屋さんには酷な手法に思えるかもしれないが，直接示しにくい命題の証明には，このアプローチはよく用いられる．念のため数学の内容を以下に示しておくと，命題$P$と$Q$が同値であることを示すには，$P\implies Q$と$Q\implies P$を示せばよい． しかし，これらを直接示す代わりに，それぞれ以下に示す対偶を示しても良い．</p>
+
+<div class="math-block">\[\begin{align*}
+\overline{Q}\implies\overline{P},\\
+\overline{P}\implies\overline{Q}.
+\end{align*}\]</div>
+
+<p>今回であれば，トムソンの原理が破れればクラウジウスの原理も破れること，またクラウジウスの原理が破れればトムソンの原理も破れることを示せばよい．</p>
+
+<h3 id="section-10">トムソンの原理の否定からクラウジウスの原理の否定へ</h3>
+
+<p>まずはトムソンの原理が否定されるとき，クラウジウスの原理も否定されることを示す．トムソンの原理が否定されるということは，単一の熱源から熱を受け取り，その熱全てを正味の仕事に変える装置が存在すること意味する．この装置を違反トムソン装置$\overline{\text{T}}$と表す．この装置が存在するとき，クラウジウスの原理も否定，つまり，低温から高温に周囲に何も変化を与えることなく，熱が移動することを示せれば良い．この論証のために，カルノーサイクルを利用する．カルノーサイクルは逆回しが可能なので，<strong>違反トムソン装置からの仕事を，逆回しのカルノーサイクルにそのまま送り，逆回りのカルノーサイクルは高温側に熱を捨てるようにするのだ．</strong>逆回しのカルノーサイクルを$\text{C}^{-1}$とし，違反トムソン装置がする仕事の大きさを$\mathcal{W}$とする．違反トムソン装置がする正味の仕事$w_\text{T}$と逆回しカルノーが外部から受ける正味の仕事$W_{\text{C}^{-1}}$は，以下の式を満たす．</p>
+
+<div class="math-block">\[\begin{align*}
+w_\text{T}=W_{\text{C}^{-1}}=\mathcal{W}.
+\end{align*}\]</div>
+
+<p>熱と仕事のやりとりを以下の図に示す．</p>
+
+<figure class="article-figure">
+  <img src="../image/1_4.png" alt="違反トムソン装置と逆カルノーサイクルの組み合わせ" loading="lazy">
+  <figcaption>Fig.4 違反トムソン装置と逆カルノーサイクルの組み合わせ</figcaption>
+</figure>
+
+<p>Tは高温熱源から$q'_H$の熱を受けとり，それを全て正味の仕事に変える．したがって，以下の関係式が成立する．</p>
+
+<div class="math-block">\[\begin{align*}
+q'_H=w_\text{T}=\mathcal{W}.
+\end{align*}\]</div>
+
+<p>$\text{C}^{-1}$はこの仕事を受け取り，高温側に排熱することができる．エネルギーの収支関係は，以下の式となる．</p>
+
+<div class="math-block">\[\begin{align*}
+q_H&=q_L+W_{\text{C}^{-1}}=q_L+\mathcal{W}=q_L+q'_H,\\
+q_L&=q_H-q'_H.
+\end{align*}\]</div>
+
+<p>この結果より，<strong>この組み合わせ装置は，低温熱源から高温熱源に熱を移動させており，周囲に何か変化を及ぼしているわけではない．</strong>仕事はあるが，その仕事は装置内部でやりとりされているだけなのだ．これはクラウジウスの原理を否定，つまり周囲に変化を残すことなく，低温熱源から高温熱源に熱を移動している．これで十分条件が示された．</p>
+
+<h3 id="section-11">クラウジウスの原理の否定からトムソンの原理の否定へ</h3>
+
+<p>今度は必要条件側を論証する．クラウジウスの原理が否定されるとき，トムソンの原理も否定されることを示せば良い．つまり，周囲に何も変化を残さずに，熱を低温から高温に移動できる装置があると仮定する．これを違反クラウジウス装置と呼び，Rとする<sup id="fnref-5"><a href="#fn-5">5</a></sup>．<strong>カルノーサイクルが低温熱源側に捨てる熱を，違反クラウジウス装置が同じ量だけ回収し，高温熱源にその熱を捨てることを考えるのだ．</strong>カルノーサイクルは低温熱源に熱を捨てるが，同じ量をRが回収するため，もはや低温熱源を介してやり取りをする必要がない．カルノーサイクルがRにそのまま排熱していることと同じである．今回は順回りのカルノーサイクルなので，これをCとし，Cがする正味の仕事を$w_\text{C}$とする．熱と仕事のやりとりを以下の図に示す．</p>
+
+<figure class="article-figure">
+  <img src="../image/1_5.png" alt="カルノーサイクルと違反クラウジウス装置の組み合わせ" loading="lazy">
+  <figcaption>Fig.5 カルノーサイクルと違反クラウジウス装置の組み合わせ</figcaption>
+</figure>
+
+<p>カルノーサイクルのエネルギー収支は，以下の式となる．</p>
+
+<div class="math-block">\[\begin{align*}
+q_H&=w_\text{C}+q_L,\\
+w_\text{C}&=q_H-q_L.
+\end{align*}\]</div>
+
+<p>図からも明らかだが，この組み合わせ装置は高温熱源から$q_H-q_L$の熱を受け取り，その全てを正味の仕事に変換している．これは，<strong>単一の熱源から熱を受け取り，その全てを正味の仕事に変えているという，トムソンの原理の否定だ．</strong>したがって，クラウジウスの原理の否定から，トムソンの原理の否定が導かれ，必要条件も示せたことになる．前節の内容もふまえて，トムソンの原理とクラウジウスの原理が同値であることが示せた．</p>
+
+<h3 id="section-12">その他の表現</h3>
+
+<p>ここではさらに，熱力学第二法則の別表現を紹介する．以下にケルビンの原理を示す<sup id="fnref-6"><a href="#fn-6">6</a></sup>．</p>
+
+<div class="principle-box">
+  <div class="principle-title">ケルビンの原理</div>
+  <ul>
+<li>等温サイクルにおいて，系がする正味の仕事$w_n$は，以下の式を満たす．
+
+<div class="math-block">\[\begin{align*}
+w_n\leq 0.
+\end{align*}\]</div></li>
+<li>等号は可逆サイクルにおいて成立する．</li>
+  </ul>
+</div>
+
+<p>ここで等温サイクルとは，熱浴1つで完結するサイクルという意味であることに注意してほしい．本によっても様々であるが，等温過程という用語は，熱力学の状態変化の途中まで等温であり続けることを要請しない．</p>
+
+<p>ケルビンの原理を日本語で言えば，『等温サイクルにおいて正味の仕事は正とならない』，である．内容的にはほぼトムソンの原理と同じである．定量的かつ簡潔な表現なので，クラウジウスの原理より分かりやすいかもしれない．</p>
+
+<p>ほかにも『カラテオドリの原理』，『プランクの原理』，『カルノーの定理（原理）』などがある．詳細はここでは述べない．私が知らないものもあるのかもしれない．どれも適切な仮定のもとでは等価な内容なのだが，表現や用語が全く異なるので混乱となるだろう．本の著者による好みも様々だ．プランクの原理については内部エネルギーに関する記事でまた触れることがあるかもしれない．</p>
+
+<p>私の感想ではあるが，熱力学第二法則の意味を端的に表現しているのは，クラウジウスの原理ではないかと（今は）思っている．この先エントロピーを定義すると，定量的でシンプルな形で，より統一的な第二法則の目線を獲得できるだろう．</p>
+
+<h2 id="section-4">カルノーの定理</h2>
+
+<p>カルノーサイクルと熱浴2つから構成される任意のサイクルに関する，カルノー定理を議論する．先述したように，カルノーの定理も熱力学第二法則の別表現と呼ばれることもあるが<sup id="fnref-7"><a href="#fn-7">7</a></sup>，個人的には第二法則の帰結とした方が見通しが良いように思う．カルノーの定理は，カルノーサイクルの熱効率に関する定理だ．</p>
+
+<div class="principle-box">
+  <div class="principle-title">カルノーの定理</div>
+  <ul>
+<li>カルノーサイクルの熱効率を$\eta_\text{C}$，熱浴2つからなる任意のサイクルの熱効率を$\eta$とすると，以下の関係式が成立する．
+
+<div class="math-block">\[\begin{align*}
+\eta_\text{C}\geq\eta.
+\end{align*}\]</div>
+
+
+ここで熱効率は，以下の式で定義される．
+
+<div class="math-block">\[\begin{align*}
+\eta=\frac{w_n}{q_H}=\frac{q_H-q_L}{q_H}.
+\end{align*}\]</div></li>
+<li>等号は可逆サイクルで成立する．</li>
+<li>サイクルが可逆であるとき，すべてのサイクルの熱効率は等しくなる．</li>
+  </ul>
+</div>
+
+<p>カルノーの定理も様々な表現があるが，まずは熱効率の上限について述べたものを取り上げた．このカルノーの定理は，熱浴2つからなる熱機関で最高効率となるのはカルノーサイクルであることを示している．この定理はエントロピーの契機となるのだが，まずはこの定理を証明する．</p>
+
+<h3 id="section-13">カルノーサイクルが最高効率であることの証明</h3>
+
+<p>カルノーサイクルと，熱浴2つからなる任意のサイクルを組み合わせた装置を考える．任意のサイクルがする正味の仕事をカルノーサイクルに与え，カルノーサイクルは逆に回す．任意のサイクルを$\text{C}'$とする．可逆サイクルの正味の仕事の大きさを$\mathcal{W}$とすると，先ほどと同様に，$\text{C}'$がする正味の仕事$w_{\text{C}'}$と，$\text{C}^{-1}$が受け取る正味の仕事$W_{\text{C}^{-1}}$は，$w_{\text{C}'}=W_{\text{C}^{-1}}=\mathcal{W}$となる．熱と仕事のやりとりを以下の図に示す．</p>
+
+<figure class="article-figure">
+  <img src="../image/1_6.png" alt="任意のサイクルと逆回しのカルノーサイクルの組み合わせ" loading="lazy">
+  <figcaption>Fig.6 任意のサイクルと逆回しのカルノーサイクルの組み合わせ</figcaption>
+</figure>
+
+<p>証明には背理法を用いる．$\text{C}^{-1}$の熱効率を$\eta_\text{C}$，$\text{C'}$の熱効率を$\eta$とする<sup id="fnref-8"><a href="#fn-8">8</a></sup>．$\eta_\text{C}<\eta$を仮定し，何か矛盾がないかを探すのだ．それぞれの効率は以下の式となる．</p>
+
+<div class="math-block">\[\begin{align*}
+\eta_\text{C}&=\frac{W_{\text{C}^{-1}}}{q'_H}=\frac{\mathcal{W}}{q'_H},\\
+\eta&=\frac{w_{\text{C}'}}{q_H}=\frac{\mathcal{W}}{q_H}.
+\end{align*}\]</div>
+
+<p>仮定より，$q_H<q'_H$が成立する．それぞれのサイクルの，エネルギー収支関係は以下の式となる．</p>
+
+<div class="math-block">\[\begin{align*}
+q_H&=\mathcal{W}+q_L,\\
+q'_H&=\mathcal{W}+q'_L.
+\end{align*}\]</div>
+
+<p>これらの式を用いると，以下の関係を満たすことがわかる．</p>
+
+<div class="math-block">\[\begin{align*}
+\mathcal{W}=q_H-q_L=q'_H-q'_L,\\
+q_H-q'_H=q_L-q'_L<0,\\
+q'_H-q_H=q'_L-q_L>0.\\
+\end{align*}\]</div>
+
+<p>結果として，この2つを組み合わせた装置は低温熱源から$q'_L-q_L(>0)$の熱を受け取り，高温熱源に$q'_H-q_H(>0)$の熱を捨てている．2つの装置の間の仕事は周囲に変化を及ぼさないため，これはクラウジウスの原理に反する．したがって，$\eta_\text{C}\geq\eta$でなければならない．</p>
+
+<p>任意のサイクルを逆回しにしてしまうと，矛盾は導かれないため注意が必要である．</p>
+
+<h3 id="section-14">可逆機関の効率が等しくなることの証明</h3>
+
+<p>次は可逆機関で効率が等しくなることを示す．同様に背理法を用いる．2つの任意の可逆サイクルを$\text{C'}_1$，$\text{C'}_2$として，それぞれの効率を$\eta_1$，$\eta_2$とする．$\eta_1>\eta_2$を仮定し，効率の小さい方のサイクルを逆回しにする．この逆回しのサイクルを$\text{C'}^{-1}_2$とする．先ほどと同様に，$\text{C'}_1$の正味の仕事を$\text{C'}^{-1}_2$に与える．仕事の大きさはこれまでと同様に$\mathcal{W}$としよう．熱と仕事のやりとりを以下の図に示す．</p>
+
+<figure class="article-figure">
+  <img src="../image/1_7.png" alt="2つの可逆サイクルの組み合わせ" loading="lazy">
+  <figcaption>Fig.7 2つの可逆サイクルの組み合わせ</figcaption>
+</figure>
+
+<p>それぞれの効率は以下の式となる．</p>
+
+<div class="math-block">\[\begin{align*}
+\eta_1&=\frac{\mathcal{W}}{q_H},\\
+\eta_2&=\frac{\mathcal{W}}{q'_H}.
+\end{align*}\]</div>
+
+<p>仮定より，$q'_H>q_H$が成立する．それぞれのサイクルの，エネルギー収支関係は以下の式となる．</p>
+
+<div class="math-block">\[\begin{align*}
+q_H&=\mathcal{W}+q_L,\\
+q'_H&=\mathcal{W}+q'_L.
+\end{align*}\]</div>
+
+<p>これらの式を用いると，以下の関係を満たすことがわかる．</p>
+
+<div class="math-block">\[\begin{align*}
+\mathcal{W}=q_H-q_L=q'_H-q'_L,\\
+q_H-q'_H=q_L-q'_L<0,\\
+q'_H-q_H=q'_L-q_L>0.
+\end{align*}\]</div>
+
+<p>先ほどの議論と全く同様に，この2つを組み合わせた装置は低温熱源から$q'_L-q_L(>0)$の熱を受け取り，高温熱源に$q'_H-q_H(>0)$の熱を捨てており，周囲への変化もないため，クラウジウスの原理に反する．したがって，$\eta_1>\eta_2$の仮定は誤りである．</p>
+
+<p>同様に，$\eta_2>\eta_1$として$\text{C'}_1$の方を逆回しに，$\text{C'}_2$を順回しにすれば同じ議論となり，この組み合わせ装置もクラウジウスの原理に反することが示される．$\eta_1>\eta_2$も$\eta_2>\eta_1$も誤りであることから，$\eta_1=\eta_2$しか許されず，熱浴2つの可逆サイクルの熱効率は等しくなることが示される．</p>
+
+<p>効率が小さい側を順回しにしてしまうと，矛盾は導かれないため注意が必要である．</p>
+
+<h3 id="section-15">カルノーの定理の別表現</h3>
+
+<p>カルノーの定理も別表現がある．高温熱源と低温熱源の温度に関する定理となるのだ．</p>
+
+<div class="principle-box">
+  <div class="principle-title">カルノーの定理---温度による表現</div>
+  <ul>
+<li>カルノーサイクルの熱効率$\eta_\text{C}$は，低温熱源の絶対温度$T_L$と，高温熱源の絶対温度$T_H$だけで決まり，以下の式で表される．
+
+<div class="math-block">\[\begin{align*}
+\eta_\text{C}=1-\frac{T_L}{T_H}.
+\end{align*}\]</div>
+
+
+<strong>上式は気体の種類に依存せずに成立する．</strong></li>
+  </ul>
+</div>
+
+<p>熱力学的な系を構成する流体を作業物質と呼ぶ．カルノーの定理は作業物質の種類よらず，カルノーサイクルの効率が2つの温度だけで決まることを主張するのだ<sup id="fnref-9"><a href="#fn-9">9</a></sup>．作業物質に依存しない議論もあるが<sup id="fnref-10"><a href="#fn-10">10</a></sup>，理想気体に限定して上式を導く．</p>
+
+<h3 id="section-16">理想気体における導出</h3>
+
+<p>カルノーサイクルの$T-V$グラフを再掲する．過程Iで吸収する熱を$Q_H(=q_H>0)$，過程IIIで捨てる熱を$Q_L(=-q_L<0)$とする．これまでとは異なり，文字の中に符号が入っていることに注意してほしい．</p>
+
+<figure class="article-figure">
+  <img src="../image/1_3.png" alt="カルノーサイクルの$T-V$グラフ（再掲）" loading="lazy">
+  <figcaption>Fig.8 カルノーサイクルの$T-V$グラフ（再掲）</figcaption>
+</figure>
+
+<p>作業物質として理想気体を選び，物質量を$n$，気体定数を$R$とすると，理想気体の状態方程式$pV=nRT$が成立する．過程I，IIIともに等温準静過程であることから，熱力学第一法則がそれぞれ以下の式で表される．</p>
+
+<div class="math-block">\[\begin{align*}
+\text{過程I}&: Q_H=w_\text{I}=\int_{V_1}^{V_2}p\dd V=\int_{V_1}^{V_2}\frac{nRT_H}{V}\dd V=nRT_H\ln{\frac{V_2}{V_1}},\\
+\text{過程III}&: Q_L=w_\text{III}=\int_{V_3}^{V_4}p\dd V=\int_{V_3}^{V_4}\frac{nRT_L}{V}\dd V=nRT_L\ln{\frac{V_4}{V_3}}.
+\end{align*}\]</div>
+
+<p>正味の仕事$w_n$は，以下の式となる．</p>
+
+<div class="math-block">\[\begin{align*}
+w_n=w_\text{I}+w_\text{III}=Q_H+Q_L=nRT_H\ln{\frac{V_2}{V_1}}+nRT_L\ln{\frac{V_4}{V_3}}.
+\end{align*}\]</div>
+
+<p>断熱準静過程では，ポアソンの式が成立する．比熱比を$\gamma$として，過程IIと過程IVで以下の式が成立する．</p>
+
+<div class="math-block">\[\begin{align*}
+\text{過程II}&: T_HV^{\gamma-1}_2=T_LV^{\gamma-1}_3,\\
+\text{過程IV}&: T_LV^{\gamma-1}_4=T_HV^{\gamma-1}_1.
+\end{align*}\]</div>
+
+<p>2つのポアソンの式から，体積について以下の式が成立する．</p>
+
+<div class="math-block">\[\begin{align*}
+\frac{V_4}{V_1}=\frac{V_3}{V_2},\\
+\frac{V_2}{V_1}=\frac{V_3}{V_4}.
+\end{align*}\]</div>
+
+<p>$\dfrac{V_2}{V_1}=\dfrac{V_3}{V_4}=\alpha$とおき，正味の仕事に代入する．</p>
+
+<div class="math-block">\[\begin{align*}
+w_n=nRT_H\ln{\alpha}+nRT_L\ln{\alpha^{-1}}=nR\ln{\alpha}(T_H-T_L).
+\end{align*}\]</div>
+
+<p>熱効率$\eta_\text{C}$は以下の式となる．</p>
+
+<div class="math-block">\[\begin{align*}
+\eta_\text{C}=\frac{w_n}{Q_H}=\frac{T_H-T_L}{T_H}=1-\frac{T_L}{T_H}.
+\end{align*}\]</div>
+
+<p>理想気体においてだが，カルノーサイクルの効率を2つの熱浴の温度で表すことができた．</p>
+
+<h3 id="section-17">新しい状態量</h3>
+
+<p>カルノーサイクルの熱効率の式から次の関係式を得る．</p>
+
+<div class="math-block">\[\begin{align*}
+\eta_\text{C}=1-\frac{T_L}{T_H}&=\frac{Q_H+Q_L}{Q_H}=1+\frac{Q_L}{Q_H},\\
+\frac{Q_L}{T_L}+\frac{Q_H}{T_H}&=0.
+\end{align*}\]</div>
+
+<p>可逆なカルノーサイクルにおいて，「受け取った符号付きの熱」と「熱浴の温度」を割った量の総和はゼロであることを主張している．ここで，可逆過程においては系は熱平衡状態を保つため，ここでの温度は熱を受け取っているときの温度である．</p>
+
+<p>ここまではカルノーサイクル1つを題材にして議論を進めてきたが，可逆な等温準静過程と断熱準静過程を何度も繰り返し，最初の状態に戻ることを考えたら上式はどのようになるのだろうか．前節の議論が繰り返されるだけなので，以下の式になることが推察できる．</p>
+
+<div class="math-block">\[\begin{align*}
+\sum_{i}\frac{Q_i}{T_i}=0.
+\end{align*}\]</div>
+
+<p>$Q_i$，$T_i$は$i$番目の等温準静過程の間に受け取る熱と温度である．さらにこの過程を極限まで細かくすると，上式は積分表式，特に最初の状態に戻るため周回積分で表すことができる．</p>
+
+<div class="math-block">\[\begin{align*}
+\oint_{C}\frac{\dd'Q}{T}=0.
+\end{align*}\]</div>
+
+<p>$C$は始状態から始状態までの，可逆過程での積分を表す．\textbf{任意の可逆閉過程に対してこの周回積分がゼロになるということは，$\dfrac{\dd'Q_\text{rev}}{T}$が完全微分として表せることを示している．}熱はあくまで経路量で完全微分で表すことはできないが，可逆な熱のやりとりの最中の温度で割ったこの量は状態量となるのだ．</p>
+
+<p>この状態量をエントロピー（Entropy）と呼び，$S$で表す．可逆過程に限り，以下の関係式が成立する．</p>
+
+<div class="math-block">\[\begin{align*}
+\frac{\dd'Q}{T}=\dd S.
+\end{align*}\]</div>
+
+<p>可逆過程においては，熱のやりとりがエントロピー変化として記述される．エントロピーが状態量であるということは，可逆過程において熱力学的な系の状態で一意に定まることを意味する．AからBまでの可逆過程を考えると，この変化のエントロピー変化は以下の式で表せる．</p>
+
+<div class="math-block">\[\begin{align*}
+\int_\text{A}^\text{B}\frac{\dd'Q}{T}=S_\text{B}-S_\text{A}.
+\end{align*}\]</div>
+
+<p>強調しておくが，可逆過程において上式は成立する．</p>
+
+<h3 id="section-18">任意のサイクルにおけるエントロピー変化</h3>
+
+<p>効率に関するカルノーの定理より，任意のサイクルの熱効率$\eta$はカルノーサイクルの熱効率$\eta_\text{C}$を上回ることができないのであった．これを踏まえて，任意のサイクルにおけるエントロピーの変化を考察する．任意のサイクルとは，不可逆過程を含むサイクルである．</p>
+
+<div class="math-block">\[\begin{align*}
+\eta_{C}&\geq\eta,\\
+1-\frac{T_L}{T_H}&\geq1+\frac{Q_L}{Q_H}.
+\end{align*}\]</div>
+
+<p>ここで右辺は，任意のサイクルにおける熱効率を表す式であり，$Q_L$，$Q_H$は任意のサイクルにおける発熱と排熱を表す．さらに式変形をする．</p>
+
+<div class="math-block">\[\begin{align*}
+\frac{Q_L}{T_L}+\frac{Q_H}{T_H}\leq0.
+\end{align*}\]</div>
+
+<p>先ほどと同じ議論で，過程を極限まで細かくすると，左辺は積分で表すことができる．</p>
+
+<div class="math-block">\[\begin{align*}
+\oint_{C'}\frac{\dd'Q}{T}\leq0.
+\end{align*}\]</div>
+
+<p>ここで$C'$は，不可逆過程を含む任意のサイクルである．この不等式はクラウジウスの不等式と呼ばれる．以下では，可逆過程と不可逆過程からなるサイクルを考え，このクラウジウスの不等式の意味を考察する．</p>
+
+<h3 id="section-19">クラウジウスの不等式とエントロピー増大則</h3>
+
+<p>以下の図のように，AからBまでを可逆な過程で状態を変化させ，BからAに戻るときは不可逆な過程で変化させるサイクルを考える．</p>
+
+<figure class="article-figure">
+  <img src="../image/1_8.png" alt="可逆過程と不可逆過程からなるサイクル" loading="lazy">
+  <figcaption>Fig.9 可逆過程と不可逆過程からなるサイクル</figcaption>
+</figure>
+
+<p>クラウジウスの不等式より，以下の関係式が成立する．</p>
+
+<div class="math-block">\[\begin{align*}
+\int_\text{A}^\text{B}\frac{\dd'Q_\text{rev}}{T}+\int_\text{B}^\text{A}\frac{\dd'Q_\text{irr}}{T}\leq0.
+\end{align*}\]</div>
+
+<p>ここで，可逆過程の熱を$\dd'Q_\text{rev}$，不可逆過程の熱を$\dd'Q_\text{irr}$と表した<sup id="fnref-11"><a href="#fn-11">11</a></sup>．可逆過程の積分については，AとBの状態のエントロピーを用いて書き換えられる．</p>
+
+<div class="math-block">\[\begin{align*}
+S_\text{B}-S_\text{A}+\int_\text{B}^\text{A}\frac{\dd'Q_\text{irr}}{T}\leq0,\\
+S_\text{A}-S_\text{B}\geq\int_\text{B}^\text{A}\frac{\dd'Q_\text{irr}}{T}.
+\end{align*}\]</div>
+
+<p>状態AとBのエントロピーは，理想的な可逆過程を考えることで求めることができる．そのことを踏まえると，<strong>不可逆過程における状態の変化では，熱の流入だけで熱力学的な系のエントロピー変化を説明できないことを意味する．状態変化におけるエントロピー変化は一意に定まるので，不可逆過程ではその不可逆性に起因するエントロピーが生成されていることを示唆するのだ．</strong>この不可逆性に起因するエントロピーを$S_\text{gen}$とすると，BからAの不可逆過程におけるエントロピー変化は，以下の等式で表せる．</p>
+
+<div class="math-block">\[\begin{align*}
+S_\text{A}-S_\text{B}=\Delta S_{\text{B}\rightarrow\text{A}}=\int_\text{B}^\text{A}\frac{\dd'Q_\text{irr}}{T}+S_\text{gen}.
+\end{align*}\]</div>
+
+<p>$S_\text{gen}$をエントロピー生成と呼び，不可逆過程においては$S_\text{gen}>0$となる．</p>
+
+<p>断熱過程においては，$\dd'Q_\text{irr}=0$となるので，$S_\text{A}-S_\text{B}\geq0$となる．つまり，断熱変化後のエントロピーの方が大きくなることを意味する．これをエントロピー増大則と呼ぶ．つまり，断熱過程はエントロピーが増大する方向に進むことが分かる．</p>
+
+<p>断熱過程においてのみ，熱力学的変化の進み方を判断できるだけでは，エントロピーを考える意味はない．純粋な断熱過程だけでなくとも，系を大きくとることで吸熱や排熱をひとまとめにして，大きな孤立系を考えることができる．<strong>自然に起こる熱力学的変化は，系だけでなく，熱浴など周囲の外界も含めてエントロピーが増大する．</strong>これが，エントロピーの熱力学的な意味合いだ．これを踏まえて，熱力学第二法則は以下のように定量的にまとめられる．</p>
+
+<div class="principle-box">
+  <div class="principle-title">エントロピーを用いた熱力学第二法則</div>
+  <ul>
+<li>熱力学的変化で，系と外界の全てを含んだエントロピー変化を$\Delta S_\text{tot}$とする．熱力学的な変化において，以下の関係式が成立する．
+
+<div class="math-block">\[\begin{align*}
+\Delta S_\text{tot}\geq0.
+\end{align*}\]</div>
+
+
+熱力学的変化は，系と外界の全エントロピーが増加するように起こる．</li>
+  </ul>
+</div>
+
+<p>エントロピーを用いると，熱の自然な移動が高温から低温に向かうことも明快に説明できる．温度$T_H$の物体から温度$T_L$の低温側に大きさ$q(>0)$の熱が移動することを考える．高温側は熱が逃げるので，エントロピーは減少する．これを$\Delta S_H$とすると，以下の式で表せる．</p>
+
+<div class="math-block">\[\begin{align*}
+\Delta S_H=-\frac{q}{T_H}.
+\end{align*}\]</div>
+
+<p>低温側は，熱が流入するのでエントロピーが増加する．これを$\Delta S_L$とすると，</p>
+
+<div class="math-block">\[\begin{align*}
+\Delta S_L=\frac{q}{T_L}.
+\end{align*}\]</div>
+
+<p>両者を足して，全体のエントロピー変化を考える．</p>
+
+<div class="math-block">\[\begin{align*}
+\Delta S_H+\Delta S_L=-\frac{q}{T_H}+\frac{q}{T_L}>0.
+\end{align*}\]</div>
+
+<p>最後の不等号は，$T_H>T_L$より導かれた．熱が高温から低温に移るのは，その変化が系全体でのエントロピー増大を促すからであったのだ．</p>
+
+<p>状態を指定さえすればエントロピーは一意に定まる．それは，状態を指定して，実際の熱力学的な変化が起こりうるのかを比較・検証できることを意味する．カルノーが考えたカルノーサイクルは，熱力学的変化を考える上で，最も基本的かつ本質的なサイクルであったのだ．</p>
+
+<p>孤立系においては，エネルギーは保存される．しかし，その背景にはエントロピーの減少を阻む，実体のない制限が存在する．これが，自然界で起こりうる反応か否かを決めていたのだ．そしてこの状態量は，熱力学において重要な物理量と深く関連する．それについてはまた別の記事を書こうと思う．</p>
+
+<section class="footnotes" aria-label="脚注">
+  <h2>脚注</h2>
+  <ol>
+<li id="fn-1">本当はもう少しこの辺りまで，受験物理でも触れられればいいのに，とは思う．しかし受験化学で，エントロピーやエンタルピーという概念が教科書に登場するようになったため，受験物理の内容も変化するかもしれない． <a class="footnote-back" href="#fnref-1">↩</a></li>
+<li id="fn-2">「熱力学—現代的な視点から」（田崎晴明，培風館）では，『系の内部エネルギーは断熱過程において定義される』，との立場で明快に議論が進められてゆく． <a class="footnote-back" href="#fnref-2">↩</a></li>
+<li id="fn-3">「熱力学—現代的な視点から」では，『系がこっそりやりとりする何か』，のような表現で熱について述べられている．ちなみにこの本では，熱力学第一法則は4章になってようやく登場する．公理的熱力学では，熱を登場させることなく理論を完結させることもできるらしい． <a class="footnote-back" href="#fnref-3">↩</a></li>
+<li id="fn-4">さらにややこしいのは，第二法則の名称も本で様々な点にある．『原理』なのか『法則』なのか，『ケルビン』なのか『トムソン』なのか．．．ちなみにケルビンとトムソンは熱力学の文脈において同一人物である．受験物理はその点，用語については洗練されていて混乱がないと思う． <a class="footnote-back" href="#fnref-4">↩</a></li>
+<li id="fn-5">Rとしたのは，クラウジウスの名前がルドルフ・ユリウス・エマヌエル・クラウジウス（Rudolf Julius Emmanuel Clausius）であるからだ．カルノーはニコラ・レオナール・サディ・カルノー（Nicolas Léonard Sadi Carnot）である． <a class="footnote-back" href="#fnref-5">↩</a></li>
+<li id="fn-6">「熱力学—現代的な視点から」，「よくわかる熱力学」，（前野昌弘，東京書籍）で紹介される第二法則である． <a class="footnote-back" href="#fnref-6">↩</a></li>
+<li id="fn-7">「熱力学（物理学レクチャーコース）」，（岸根純一郎，裳華房）．この本ではプランクの原理が第二法則の中で最も洗練された表現だと述べられている． <a class="footnote-back" href="#fnref-7">↩</a></li>
+<li id="fn-8">逆回しにおける効率の意味が気になる人は，同じ熱量と仕事のやり取りで，順回しだったときの効率だと思えば良い． <a class="footnote-back" href="#fnref-8">↩</a></li>
+<li id="fn-9">カルノーの定理は，温度の定義へと繋がる．これもまた記事にしたい． <a class="footnote-back" href="#fnref-9">↩</a></li>
+<li id="fn-10">「熱力学—現代的な視点から」や「よくわかる熱力学」で詳細に議論されている．この議論は別の記事で紹介したい． <a class="footnote-back" href="#fnref-10">↩</a></li>
+<li id="fn-11">可逆過程を（reversible process），不可逆過程を（irreversible process）と呼ぶ． <a class="footnote-back" href="#fnref-11">↩</a></li>
+  </ol>
+</section>
+
+    </article>
+
+    <aside class="toc" aria-label="目次">
+      <div class="toc-title">目次</div>
+      <ul>
+<li class="toc-level-2"><a href="#section-2">熱力学第一法則の主張</a></li>
+<li class="toc-level-2"><a href="#section-3">熱力学第二法則の主張</a></li>
+<li class="toc-level-2"><a href="#section-4">カルノーの定理</a></li>
+<li class="toc-level-3"><a href="#section-5">仕事の表現</a></li>
+<li class="toc-level-3"><a href="#section-6">トムソンの原理</a></li>
+<li class="toc-level-3"><a href="#section-7">クラウジウスの原理</a></li>
+<li class="toc-level-3"><a href="#section-8">カルノーサイクル</a></li>
+<li class="toc-level-3"><a href="#section-9">トムソンの原理とクラウジウスの原理の同値性</a></li>
+<li class="toc-level-3"><a href="#section-10">トムソンの原理の否定からクラウジウスの原理の否定へ</a></li>
+<li class="toc-level-3"><a href="#section-11">クラウジウスの原理の否定からトムソンの原理の否定へ</a></li>
+<li class="toc-level-3"><a href="#section-12">その他の表現</a></li>
+<li class="toc-level-3"><a href="#section-13">カルノーサイクルが最高効率であることの証明</a></li>
+<li class="toc-level-3"><a href="#section-14">可逆機関の効率が等しくなることの証明</a></li>
+<li class="toc-level-3"><a href="#section-15">カルノーの定理の別表現</a></li>
+<li class="toc-level-3"><a href="#section-16">理想気体における導出</a></li>
+<li class="toc-level-3"><a href="#section-17">新しい状態量</a></li>
+<li class="toc-level-3"><a href="#section-18">任意のサイクルにおけるエントロピー変化</a></li>
+<li class="toc-level-3"><a href="#section-19">クラウジウスの不等式とエントロピー増大則</a></li>
+      </ul>
+    </aside>
+  </main>
+
+  <footer class="site-footer">
+    <span>© 物理の海の泳ぎ方</span>
+  </footer>
+</body>
+</html>
